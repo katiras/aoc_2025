@@ -30,45 +30,42 @@ fn main() {
     }
 
     let mut current_pos = INITIAL_POSITION;
-    let mut zero_count = 0;
-    let mut zero_passes = 0;
+    let mut zeros = 0;
 
     for rotation in rotations {
+        let prev_pos = current_pos;
+        
         match rotation {
-            Rotation::Left(n) => {                
-                let incr = n / UPPER_BOUND;
-                let rem = n - (UPPER_BOUND * incr);
-                
-                zero_passes += incr;
-                
-                let prev_pos = current_pos;
-                
-                current_pos = (current_pos - rem).rem_euclid(UPPER_BOUND);
-                
+            Rotation::Left(n) => {
+                let full_rotations = n / UPPER_BOUND;
+                let remainder = n - (UPPER_BOUND * full_rotations);
+
+                zeros += full_rotations;
+
+                current_pos = (current_pos - remainder).rem_euclid(UPPER_BOUND);
+
                 if prev_pos != 0 && current_pos != 0 && current_pos > prev_pos {
-                    zero_passes += 1;
+                    zeros += 1;
                 }
             }
-            Rotation::Right(n) => {                
-                let incr = n / UPPER_BOUND;
-                let rem = n - (UPPER_BOUND * incr);
-                
-                zero_passes += incr;
-                
-                let prev_pos = current_pos;
-                
-                current_pos = (current_pos + rem).rem_euclid(UPPER_BOUND);
-                
+            Rotation::Right(n) => {
+                let full_rotations = n / UPPER_BOUND;
+                let remainder = n - (UPPER_BOUND * full_rotations);
+
+                zeros += full_rotations;
+
+                current_pos = (current_pos + remainder).rem_euclid(UPPER_BOUND);
+
                 if prev_pos != 0 && current_pos != 0 && current_pos < prev_pos {
-                    zero_passes += 1;
+                    zeros += 1;
                 }
             }
         };
 
         if current_pos == 0 {
-            zero_count += 1;
+            zeros += 1;
         }
     }
 
-    println!("{}", zero_passes + zero_count);
+    println!("{}", zeros);
 }
