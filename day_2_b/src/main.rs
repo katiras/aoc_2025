@@ -22,7 +22,6 @@ fn main() {
                 }
 
                 if str == id_str {
-                    println!("{} {} {}", id_str, str, l);
                     sum += id;
                     break
                 }
