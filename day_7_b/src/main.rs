@@ -11,9 +11,9 @@ fn main() {
 
     let mut memo: HashMap<(usize, usize), u64> = HashMap::new();
 
-    let split_count = calc(&grid, start_x, 0, &mut memo);
+    let n = calc(&grid, start_x, 0, &mut memo);
 
-    println!("{}", split_count);
+    println!("{}", n);
 }
 
 fn calc(grid: &Vec<Vec<char>>, x: usize, y: usize, memo: &mut HashMap<(usize, usize), u64>) -> u64 {
